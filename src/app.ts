@@ -21,6 +21,18 @@ const main = async () => {
     isConnected = true;
     console.log('Conectado');
   });
+  provider.on('preinit', () => {
+    isConnected = false;
+    console.log('Iniciando');
+  });
+  provider.on('require_action', () => {
+    isConnected = false;
+    console.log('Esperando conexión');
+  });
+  provider.on('auth_failure', () => {
+    isConnected = false;
+    console.log('Falló conexión');
+  });
   provider.initHttpServer(3002);
 
   /** @description Consultamos si existe una conexión activa, si no existe, envía el qr (recordar que el qr tiene un ciclo de vida de 1 min) */
